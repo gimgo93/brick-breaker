@@ -10,7 +10,7 @@
 (()=>{
 const canvas=document.querySelector('#game'),ctx=canvas.getContext('2d'),overlay=document.querySelector('#overlay'),titleEl=document.querySelector('#title'),messageEl=document.querySelector('#message'),startButton=document.querySelector('#start'),scoreEl=document.querySelector('#score'),ballsEl=document.querySelector('#balls'),speedEl=document.querySelector('#speed');
 const W=canvas.width,H=canvas.height,COLS=7,LEFT=24,CELL_W=88,CELL_GAP=8,BRICK_H=22,colors=['#72e6c1','#63c7ff','#a996ff','#ff8b9a','#ffd166'];
-const paddle={x:(W-112)/2,y:H-42,w:112,h:13,speed:8};let balls=[],bricks=[],score=0,active=false,paused=false,lastFrame=0,lastRow=0,rowCounter=0,keys={};
+const paddle={x:(W-112)/2,y:H-42,w:112,h:13,speed:8};let balls=[{x:W/2,y:H-54,r:8,dx:0,dy:0}],bricks=[],score=0,active=false,paused=false,lastFrame=0,lastRow=0,rowCounter=0,keys={};
 function tier(){if(score<100)return{name:'느림',ball:3.2,brick:13,row:3900};if(score<=500)return{name:'빠름',ball:4.5,brick:22,row:3100};return{name:'최고',ball:5.8,brick:32,row:2400}}
 function makeBall(x=paddle.x+paddle.w/2,y=paddle.y-12,angle=-Math.PI/2){const s=tier().ball;return{x,y,r:8,dx:Math.cos(angle)*s,dy:Math.sin(angle)*s}}
 function startGame(){score=0;balls=[makeBall()];bricks=[];rowCounter=0;paddle.x=(W-paddle.w)/2;lastFrame=0;lastRow=performance.now();active=true;paused=false;overlay.classList.add('hide');updateHud();draw();requestAnimationFrame(tick)}
